@@ -8,12 +8,9 @@ import java.time.format.DateTimeFormatter
 class Data {
     companion object {
         fun getSalahTimes(context: Context): ArrayList<SalahTime> {
-            var salahTimes = ArrayList<SalahTime>()
+            val salahTimes = ArrayList<SalahTime>()
 
-            val inputStream = context.resources.openRawResource(R.raw.data)
-            val data = inputStream.bufferedReader().use { it.readText() }
-
-            for (line in data.lines()) {
+            for (line in getRawData(context, R.raw.data).lines()) {
                 val values = line.split(",")
                 if (values[0] == getTodayDate()) {
                     salahTimes.add(SalahTime("Fajr", values[1]))
@@ -25,6 +22,11 @@ class Data {
                 }
             }
             return salahTimes
+        }
+
+        private fun getRawData(context: Context, rawId: Int): String {
+            val inputStream = context.resources.openRawResource(rawId)
+            return inputStream.bufferedReader().use { it.readText() }
         }
 
         private fun getTodayDate(): String {
