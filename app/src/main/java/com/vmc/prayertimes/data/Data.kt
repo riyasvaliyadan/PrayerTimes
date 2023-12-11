@@ -7,17 +7,17 @@ import java.time.format.DateTimeFormatter
 
 class Data {
     companion object {
-        fun getSalahTimes(context: Context): ArrayList<SalahTime> {
+        fun getSalahTimes(context: Context): List<SalahTime> {
             val salahTimes = ArrayList<SalahTime>()
 
             for (line in getRawData(context, R.raw.data).lines()) {
                 val values = line.split(",")
                 if (values[0] == getTodayDate()) {
-                    salahTimes.add(SalahTime("Fajr", values[1]))
-                    salahTimes.add(SalahTime("Zuhr", values[2]))
-                    salahTimes.add(SalahTime("Asar", values[3]))
-                    salahTimes.add(SalahTime("Magrib", values[4]))
-                    salahTimes.add(SalahTime("Isha", values[5]))
+                    salahTimes.add(SalahTime("fajr", values[1]))
+                    salahTimes.add(SalahTime("zuhr", values[2]))
+                    salahTimes.add(SalahTime("asr", values[3]))
+                    salahTimes.add(SalahTime("maghrib", values[4]))
+                    salahTimes.add(SalahTime("isha", values[5]))
                     break
                 }
             }
