@@ -20,14 +20,26 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.vmc.prayertimes.data.Data
-import com.vmc.prayertimes.data.SalahTime
+import com.vmc.prayertimes.MyPreferenceManager.isItFirstStart
+import com.vmc.prayertimes.alarm.MyAlarm
+import com.vmc.prayertimes.data.Prayer
+import com.vmc.prayertimes.data.TimeProvider
+import com.vmc.prayertimes.data.TimeProvider.Companion.getTimeForNextFajr
 import com.vmc.prayertimes.ui.theme.PrayerTimesTheme
 
+const val PREF_NAME = "isFirstRun"
+
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val times = Data.getSalahTimes(context = applicationContext)
+
+        // set alarm manager
+        if (true && isItFirstStart(applicationContext)) { // todo always true
+            MyAlarm.setAlarm(applicationContext, getTimeForNextFajr())
+        }
+
+        val times = TimeProvider.getSalahTimes(context = applicationContext)
         setContent {
             PrayerTimesTheme {
                 Surface(modifier = Modifier.background(Color.Black)) {
@@ -39,11 +51,11 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun MyApp(modifier: Modifier, times: List<SalahTime>) {
+fun MyApp(modifier: Modifier, times: List<Prayer>) {
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         Column(modifier = modifier, horizontalAlignment = Alignment.End) {
             times.forEach { prayer ->
-                ListItem(prayer.name, prayer.time)
+                ListItem(prayer.name, prayer.azan, prayer.iqama)
             }
         }
     }
@@ -55,6 +67,7 @@ fun ListItem(name: String = "PrayerName", time: String = "00:00 AM", iqama: Stri
     Row(modifier = Modifier.padding(4.dp)) {
         Text(text = name, color = Color.DarkGray, fontSize = 22.sp, fontFamily = FontFamily(Font(R.font.roboto_regular)))
         Text(text = " $time", fontSize = 22.sp, fontFamily = FontFamily(Font(R.font.roboto_light)))
+        Text(text = " $iqama", color = Color.Gray, fontSize = 22.sp, fontFamily = FontFamily(Font(R.font.roboto_light)))
     }
 }
 
