@@ -13,10 +13,10 @@ class AlarmReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context?, intent: Intent?) {
         if (Intent.ACTION_BOOT_COMPLETED == intent?.action) {
-            // reset all alarms
-            // todo
+            if (context != null)
+                MyAlarm.setAlarm(context, TimeProvider.getMillisForNextPrayer(context))
         } else {
-            mediaPlayer = MediaPlayer.create(context, R.raw.hayya_alassallah)
+            mediaPlayer = MediaPlayer.create(context, R.raw.azan_ringtone)
             mediaPlayer.start()
 
             if (context != null) {
