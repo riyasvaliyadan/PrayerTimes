@@ -24,7 +24,7 @@ import com.vmc.prayertimes.MyPreferenceManager.isItFirstStart
 import com.vmc.prayertimes.alarm.MyAlarm
 import com.vmc.prayertimes.data.Prayer
 import com.vmc.prayertimes.data.TimeProvider
-import com.vmc.prayertimes.data.TimeProvider.Companion.getTimeForNextFajr
+import com.vmc.prayertimes.data.TimeProvider.Companion.getMillisForNextPrayer
 import com.vmc.prayertimes.ui.theme.PrayerTimesTheme
 
 const val PREF_NAME = "isFirstRun"
@@ -35,8 +35,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         // set alarm manager
-        if (true && isItFirstStart(applicationContext)) { // todo always true
-            MyAlarm.setAlarm(applicationContext, getTimeForNextFajr())
+        if (true || isItFirstStart(applicationContext)) { // todo always true
+            MyAlarm.setAlarm(applicationContext, getMillisForNextPrayer(applicationContext))
         }
 
         val times = TimeProvider.getSalahTimes(context = applicationContext)

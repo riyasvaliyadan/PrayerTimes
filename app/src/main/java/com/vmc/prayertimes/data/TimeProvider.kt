@@ -35,9 +35,23 @@ class TimeProvider {
             return LocalDateTime.now().format(formatter)
         }
 
-        fun getTimeForNextFajr(): Calendar = Calendar.getInstance().apply {
-            set(Calendar.HOUR_OF_DAY, 6)
-            set(Calendar.MINUTE, 10)
+        fun getMillisForNextPrayer(context: Context): Long {
+            // todo
+            val times = getRawData(context, R.raw.time_millis)
+
+            // current time
+            val calendar = Calendar.getInstance()
+            val currentTimeInMillis = calendar.timeInMillis
+
+            times.split("\n")
+                .map { it.toLong() }
+                .forEach { time ->
+                    if (time > currentTimeInMillis) {
+                        return time
+                    }
+                }
+
+            return Long.MAX_VALUE
         }
     }
 }
