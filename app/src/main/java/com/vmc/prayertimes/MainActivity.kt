@@ -1,6 +1,7 @@
 package com.vmc.prayertimes
 
 import android.os.Bundle
+import android.os.PowerManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
@@ -27,8 +28,6 @@ import com.vmc.prayertimes.data.TimeProvider
 import com.vmc.prayertimes.data.TimeProvider.Companion.getMillisForNextPrayer
 import com.vmc.prayertimes.ui.theme.PrayerTimesTheme
 
-const val PREF_NAME = "isFirstRun"
-
 class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,6 +36,7 @@ class MainActivity : ComponentActivity() {
         // set alarm manager
         if (isItFirstStart(applicationContext)) {
             MyAlarm.setAlarm(applicationContext, getMillisForNextPrayer(applicationContext))
+            MyPreferenceManager.setNotFirstRun(applicationContext)
         }
 
         val times = TimeProvider.getSalahTimes(context = applicationContext)
