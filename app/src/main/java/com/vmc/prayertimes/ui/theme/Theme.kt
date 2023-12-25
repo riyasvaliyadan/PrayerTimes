@@ -13,7 +13,7 @@ import androidx.core.view.WindowCompat
 
 private val ColorScheme = lightColorScheme(
     primary = Color(0xFF000000),
-    secondary = PurpleGrey40,
+    secondary = Color(0xFF00BCD4),
     tertiary = Pink40,
 
     background = Color(0xFF000000),
@@ -22,7 +22,7 @@ private val ColorScheme = lightColorScheme(
     onSecondary = Color.White,
     onTertiary = Color.White,
     onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
+    onSurface = Color(0xFF1C1B1F)
 )
 
 @Composable
@@ -36,7 +36,7 @@ fun PrayerTimesTheme(
     if (!view.isInEditMode) {
         SideEffect {
             val window = (view.context as Activity).window
-            window.statusBarColor = colorScheme.primary.toArgb()
+            window.statusBarColor = colorScheme.secondary.toArgb()
             WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = darkTheme
         }
     }

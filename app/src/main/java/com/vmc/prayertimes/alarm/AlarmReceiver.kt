@@ -16,7 +16,7 @@ class AlarmReceiver : BroadcastReceiver() {
             if (context != null)
                 MyAlarm.setAlarm(context, TimeProvider.getMillisForNextPrayer(context))
         } else {
-            mediaPlayer = MediaPlayer.create(context, R.raw.azan_ringtone)
+            mediaPlayer = MediaPlayer.create(context, MyAlarm.ringtone)
             mediaPlayer.start()
 
             if (context != null) {

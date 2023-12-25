@@ -35,7 +35,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         // set alarm manager
-        if (true || isItFirstStart(applicationContext)) { // todo always true
+        if (isItFirstStart(applicationContext)) {
             MyAlarm.setAlarm(applicationContext, getMillisForNextPrayer(applicationContext))
         }
 
