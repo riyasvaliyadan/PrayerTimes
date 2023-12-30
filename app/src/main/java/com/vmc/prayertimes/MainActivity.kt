@@ -1,7 +1,6 @@
 package com.vmc.prayertimes
 
 import android.os.Bundle
-import android.os.PowerManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
@@ -40,6 +39,7 @@ class MainActivity : ComponentActivity() {
         }
 
         val times = TimeProvider.getSalahTimes(context = applicationContext)
+
         setContent {
             PrayerTimesTheme {
                 Surface(modifier = Modifier.background(Color.Black)) {
@@ -64,7 +64,7 @@ fun MyApp(modifier: Modifier, times: List<Prayer>) {
 @Preview (showBackground = true)
 @Composable
 fun ListItem(name: String = "PrayerName", time: String = "00:00 AM", iqama: String = "00:00") {
-    Row(modifier = Modifier.padding(4.dp)) {
+    Row(modifier = Modifier.padding(3.dp)) {
         Text(text = name, color = Color.DarkGray, fontSize = 22.sp, fontFamily = FontFamily(Font(R.font.roboto_regular)))
         Text(text = " $time", fontSize = 22.sp, fontFamily = FontFamily(Font(R.font.roboto_light)))
         Text(text = " $iqama", color = Color.Gray, fontSize = 22.sp, fontFamily = FontFamily(Font(R.font.roboto_light)))

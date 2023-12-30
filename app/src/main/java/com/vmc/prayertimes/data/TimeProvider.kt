@@ -1,10 +1,14 @@
 package com.vmc.prayertimes.data
 
 import android.content.Context
+import android.util.Log
 import com.vmc.prayertimes.R
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Calendar
+import kotlin.time.DurationUnit
+import kotlin.time.ExperimentalTime
+import kotlin.time.measureTime
 
 class TimeProvider {
     companion object {
@@ -25,9 +29,15 @@ class TimeProvider {
             return salahTimes
         }
 
+        @OptIn(ExperimentalTime::class)
         private fun getRawData(context: Context, rawId: Int): String {
-            val inputStream = context.resources.openRawResource(rawId)
-            return inputStream.bufferedReader().use { it.readText() }
+            var output: String
+            val timeTaken = measureTime {
+                val inputStream = context.resources.openRawResource(rawId)
+                output = inputStream.bufferedReader().use { it.readText() }
+            }
+            Log.d("Riyas.Vmc", timeTaken.toString(DurationUnit.MILLISECONDS))
+            return output
         }
 
         private fun getTodayDate(): String {
@@ -52,6 +62,10 @@ class TimeProvider {
                 }
 
             return Long.MAX_VALUE
+        }
+
+        fun getPreviousTime(): Long {
+            return 1701387960000
         }
     }
 }

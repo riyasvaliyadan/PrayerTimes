@@ -5,13 +5,16 @@ import android.app.AlarmManager.AlarmClockInfo
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.media.MediaPlayer
 import androidx.activity.ComponentActivity
+import androidx.annotation.DrawableRes
+import androidx.annotation.RawRes
 import com.vmc.prayertimes.MainActivity
 import com.vmc.prayertimes.R
 
 object MyAlarm {
 
-    val ringtone = R.raw.azan_ringtone
+    @RawRes private val ringtone = R.raw.azan_ringtone
     private const val ID_CODE = 0
 
     fun setAlarm(context: Context, timeInMillis: Long) {
@@ -31,5 +34,9 @@ object MyAlarm {
         val intent = Intent(context, AlarmReceiver::class.java)
         val pendingIntent = PendingIntent.getBroadcast(context, ID_CODE, intent, PendingIntent.FLAG_UPDATE_CURRENT)
         alarmManager.cancel(pendingIntent)
+    }
+
+    fun playSound(context: Context) {
+        val mediaPlayer = MediaPlayer.create(context, ringtone).start()
     }
 }
