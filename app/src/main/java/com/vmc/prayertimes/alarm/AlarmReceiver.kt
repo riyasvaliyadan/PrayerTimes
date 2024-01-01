@@ -12,12 +12,12 @@ class AlarmReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
         if (Intent.ACTION_BOOT_COMPLETED == intent?.action) {
             if (context != null) {
-                MyAlarm.setAlarm(context, TimeProvider.getMillisForNextPrayer(context))
+                MyAlarm.setAlarm(context)
             }
         } else {
             if (context != null) {
                 MyAlarm.playSound(context)
-                MyAlarm.setAlarm(context, TimeProvider.getMillisForNextPrayer(context))
+                MyAlarm.setAlarm(context)
             }
         }
     }

@@ -45,6 +45,12 @@ class TimeProvider {
             return LocalDateTime.now().format(formatter)
         }
 
+        fun getNextMinuteMillis(context: Context): Long {
+            val calendar = Calendar.getInstance()
+            calendar.add(Calendar.MINUTE, 1)
+            return calendar.timeInMillis
+        }
+
         fun getMillisForNextPrayer(context: Context): Long {
             // todo
             val times = getRawData(context, R.raw.time_millis)

@@ -5,28 +5,32 @@ import android.app.AlarmManager.AlarmClockInfo
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.media.AudioManager
 import android.media.MediaPlayer
 import androidx.activity.ComponentActivity
-import androidx.annotation.DrawableRes
 import androidx.annotation.RawRes
 import com.vmc.prayertimes.MainActivity
 import com.vmc.prayertimes.R
+import com.vmc.prayertimes.data.TimeProvider.Companion.getMillisForNextPrayer
+import com.vmc.prayertimes.data.TimeProvider.Companion.getNextMinuteMillis
+import com.vmc.prayertimes.data.TimeProvider.Companion.getPreviousTime
 
 object MyAlarm {
-
     @RawRes private val ringtone = R.raw.azan_ringtone
     private const val ID_CODE = 0
 
-    fun setAlarm(context: Context, timeInMillis: Long) {
+    fun setAlarm(context: Context) {
+        val alarmTime = getMillisForNextPrayer(context)
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val i = Intent(context, AlarmReceiver::class.java)
         val intent = Intent(context, MainActivity::class.java)
         val showIntent = PendingIntent.getActivity(context, ID_CODE, intent, PendingIntent.FLAG_MUTABLE)
         val pendingIntent = PendingIntent.getBroadcast(context, ID_CODE, i, PendingIntent.FLAG_MUTABLE)
-        val alarmClockInfo = AlarmClockInfo(timeInMillis, showIntent)
 
-//        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
-        alarmManager.setAlarmClock(alarmClockInfo, pendingIntent)
+        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent)
+
+        /*val alarmClockInfo = AlarmClockInfo(alarmTime, showIntent)
+        alarmManager.setAlarmClock(alarmClockInfo, pendingIntent)*/
     }
 
     fun cancelAlarm(context: Context) {
@@ -37,6 +41,14 @@ object MyAlarm {
     }
 
     fun playSound(context: Context) {
-        val mediaPlayer = MediaPlayer.create(context, ringtone).start()
+        val audioManager = context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
+        if (audioManager.ringerMode == AudioManager.RINGER_MODE_NORMAL) {
+            // Play the sound
+            val mediaPlayer = MediaPlayer.create(context, ringtone).apply {
+                setVolume(1F, 1F)
+            }
+            mediaPlayer.start()
+        }
+
     }
 }
