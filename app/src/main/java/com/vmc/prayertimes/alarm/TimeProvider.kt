@@ -1,8 +1,9 @@
-package com.vmc.prayertimes.data
+package com.vmc.prayertimes.alarm
 
 import android.content.Context
 import android.util.Log
 import com.vmc.prayertimes.R
+import com.vmc.prayertimes.Prayer
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Calendar
@@ -29,26 +30,14 @@ class TimeProvider {
             return salahTimes
         }
 
-        @OptIn(ExperimentalTime::class)
         private fun getRawData(context: Context, rawId: Int): String {
-            var output: String
-            val timeTaken = measureTime {
-                val inputStream = context.resources.openRawResource(rawId)
-                output = inputStream.bufferedReader().use { it.readText() }
-            }
-            Log.d("Riyas.Vmc", timeTaken.toString(DurationUnit.MILLISECONDS))
-            return output
+            val inputStream = context.resources.openRawResource(rawId)
+            return inputStream.bufferedReader().use { it.readText() }
         }
 
         private fun getTodayDate(): String {
             val formatter = DateTimeFormatter.ofPattern("dd MMM yyyy")
             return LocalDateTime.now().format(formatter)
-        }
-
-        fun getNextMinuteMillis(context: Context): Long {
-            val calendar = Calendar.getInstance()
-            calendar.add(Calendar.MINUTE, 1)
-            return calendar.timeInMillis
         }
 
         fun getMillisForNextPrayer(context: Context): Long {
@@ -68,10 +57,6 @@ class TimeProvider {
                 }
 
             return Long.MAX_VALUE
-        }
-
-        fun getPreviousTime(): Long {
-            return 1701387960000
         }
     }
 }

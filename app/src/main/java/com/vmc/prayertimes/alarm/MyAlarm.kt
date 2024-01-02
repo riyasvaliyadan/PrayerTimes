@@ -7,13 +7,12 @@ import android.content.Context
 import android.content.Intent
 import android.media.AudioManager
 import android.media.MediaPlayer
+import android.media.RingtoneManager
 import androidx.activity.ComponentActivity
 import androidx.annotation.RawRes
 import com.vmc.prayertimes.MainActivity
 import com.vmc.prayertimes.R
-import com.vmc.prayertimes.data.TimeProvider.Companion.getMillisForNextPrayer
-import com.vmc.prayertimes.data.TimeProvider.Companion.getNextMinuteMillis
-import com.vmc.prayertimes.data.TimeProvider.Companion.getPreviousTime
+import com.vmc.prayertimes.alarm.TimeProvider.Companion.getMillisForNextPrayer
 
 object MyAlarm {
     @RawRes private val ringtone = R.raw.azan_ringtone
@@ -27,10 +26,8 @@ object MyAlarm {
         val showIntent = PendingIntent.getActivity(context, ID_CODE, intent, PendingIntent.FLAG_MUTABLE)
         val pendingIntent = PendingIntent.getBroadcast(context, ID_CODE, i, PendingIntent.FLAG_MUTABLE)
 
-        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent)
-
-        /*val alarmClockInfo = AlarmClockInfo(alarmTime, showIntent)
-        alarmManager.setAlarmClock(alarmClockInfo, pendingIntent)*/
+        val alarmClockInfo = AlarmClockInfo(alarmTime, showIntent)
+        alarmManager.setAlarmClock(alarmClockInfo, pendingIntent)
     }
 
     fun cancelAlarm(context: Context) {
@@ -43,12 +40,9 @@ object MyAlarm {
     fun playSound(context: Context) {
         val audioManager = context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
         if (audioManager.ringerMode == AudioManager.RINGER_MODE_NORMAL) {
-            // Play the sound
-            val mediaPlayer = MediaPlayer.create(context, ringtone).apply {
-                setVolume(1F, 1F)
-            }
+            // play Sound
+            val mediaPlayer = MediaPlayer.create(context, ringtone)
             mediaPlayer.start()
         }
-
     }
 }

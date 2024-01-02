@@ -20,11 +20,8 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.vmc.prayertimes.MyPreferenceManager.isItFirstStart
 import com.vmc.prayertimes.alarm.MyAlarm
-import com.vmc.prayertimes.data.Prayer
-import com.vmc.prayertimes.data.TimeProvider
-import com.vmc.prayertimes.data.TimeProvider.Companion.getMillisForNextPrayer
+import com.vmc.prayertimes.alarm.TimeProvider
 import com.vmc.prayertimes.ui.theme.PrayerTimesTheme
 
 class MainActivity : ComponentActivity() {
@@ -32,11 +29,15 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // set alarm
+        MyAlarm.setAlarm(applicationContext)
+
+        /*
         // set alarm manager
-        if (true || isItFirstStart(applicationContext)) {
-            MyAlarm.setAlarm(applicationContext)
+        if (isItFirstStart(applicationContext)) {
+
             MyPreferenceManager.setNotFirstRun(applicationContext)
-        }
+        }*/
 
         val times = TimeProvider.getSalahTimes(context = applicationContext)
 
