@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import com.vmc.prayertimes.R
 import com.vmc.prayertimes.Prayer
+import com.vmc.prayertimes.Utility.getRawData
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Calendar
@@ -28,11 +29,6 @@ class TimeProvider {
                 }
             }
             return salahTimes
-        }
-
-        private fun getRawData(context: Context, rawId: Int): String {
-            val inputStream = context.resources.openRawResource(rawId)
-            return inputStream.bufferedReader().use { it.readText() }
         }
 
         private fun getTodayDate(): String {

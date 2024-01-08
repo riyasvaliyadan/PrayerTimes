@@ -7,7 +7,6 @@ import android.content.Context
 import android.content.Intent
 import android.media.AudioManager
 import android.media.MediaPlayer
-import android.media.RingtoneManager
 import androidx.activity.ComponentActivity
 import androidx.annotation.RawRes
 import com.vmc.prayertimes.MainActivity
@@ -15,7 +14,7 @@ import com.vmc.prayertimes.R
 import com.vmc.prayertimes.alarm.TimeProvider.Companion.getMillisForNextPrayer
 
 object MyAlarm {
-    @RawRes private val ringtone = R.raw.azan_ringtone
+    @RawRes private val ringtone = R.raw.azan_short
     private const val ID_CODE = 0
 
     fun setAlarm(context: Context) {
