@@ -13,7 +13,6 @@ import androidx.annotation.RawRes
 import com.vmc.prayertimes.MainActivity
 import com.vmc.prayertimes.R
 import com.vmc.prayertimes.alarm.TimeProvider.Companion.getMillisForNextPrayer
-import com.vmc.prayertimes.alarm.TimeProvider.Companion.getMillisForTimeAfterOneMinute
 
 object MyAlarm {
     @RawRes private val ringtone = R.raw.azan_short
@@ -23,11 +22,13 @@ object MyAlarm {
         val alarmTime = getMillisForNextPrayer(context)
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val i = Intent(context, AlarmReceiver::class.java)
-        val intent = Intent(context, MainActivity::class.java)
-        val showIntent = PendingIntent.getActivity(context, ID_CODE, intent, PendingIntent.FLAG_MUTABLE)
+        val showIntent = Intent(context, MainActivity::class.java).apply {
+            addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
+        }
+        val showPendingIntent = PendingIntent.getActivity(context, ID_CODE, showIntent, PendingIntent.FLAG_MUTABLE)
         val pendingIntent = PendingIntent.getBroadcast(context, ID_CODE, i, PendingIntent.FLAG_MUTABLE)
 
-        val alarmClockInfo = AlarmClockInfo(alarmTime, showIntent)
+        val alarmClockInfo = AlarmClockInfo(alarmTime, showPendingIntent)
         alarmManager.setAlarmClock(alarmClockInfo, pendingIntent)
     }
 

@@ -37,7 +37,6 @@ class TimeProvider {
         }
 
         fun getMillisForNextPrayer(context: Context): Long {
-            // todo
             val times = getRawData(context, R.raw.time_millis)
 
             // current time
