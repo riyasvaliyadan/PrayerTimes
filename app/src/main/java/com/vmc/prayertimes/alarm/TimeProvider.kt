@@ -54,5 +54,13 @@ class TimeProvider {
 
             return Long.MAX_VALUE
         }
+
+
+        fun getMillisForTimeAfterOneMinute(context: Context): Long {
+            // current time
+            val calendar = Calendar.getInstance()
+            calendar.add(Calendar.SECOND, 15)
+            return calendar.timeInMillis
+        }
     }
 }
