@@ -71,19 +71,3 @@ fun ListItem(name: String = "PrayerName", time: String = "00:00 AM", iqama: Stri
         Text(text = " $iqama", color = Color.Gray, fontSize = 22.sp, fontFamily = FontFamily(Font(R.font.roboto_light)))
     }
 }
-
-// todo: learn more about then implement this part
-/*
-@Preview (
-    showBackground = false,
-    widthDp = 300,
-    heightDp = 600
-)
-@Composable
-fun MyAppPreview() {
-    PrayerTimesTheme {
-        Surface {
-            MyApp(modifier = Modifier, times = times)
-        }
-    }
-}*/
