@@ -1,4 +1,4 @@
-package com.vmc.prayertimes
+package com.vmc.prayertimes.ui.activity
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -20,8 +20,11 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.vmc.prayertimes.R
 import com.vmc.prayertimes.alarm.MyAlarm
-import com.vmc.prayertimes.alarm.TimeProvider
+import com.vmc.prayertimes.model.Prayer
+import com.vmc.prayertimes.ui.screen.HomeViewModel
+import com.vmc.prayertimes.ui.screen.MyApp
 import com.vmc.prayertimes.ui.theme.PrayerTimesTheme
 
 class MainActivity : ComponentActivity() {
@@ -32,42 +35,23 @@ class MainActivity : ComponentActivity() {
         // set alarm
         MyAlarm.setAlarm(applicationContext)
 
-        /*
-        // set alarm manager
-        if (isItFirstStart(applicationContext)) {
+        // Using Dependency Injection (recommended)
+        // val viewModel: MyViewModel by viewModels()
 
-            MyPreferenceManager.setNotFirstRun(applicationContext)
-        }*/
+        // Direct instantiation (consider using a factory for complex dependencies)
+        val viewModel = HomeViewModel(application)
+        var times: List<Prayer> = listOf()
 
-        val times = TimeProvider.getSalahTimes(context = applicationContext)
+        viewModel.timesLiveData.observe(this) {
+            times = it
+        }
 
         setContent {
             PrayerTimesTheme {
                 Surface(modifier = Modifier.background(Color.Black)) {
-                    MyApp(modifier = Modifier, times)
+                    MyApp(times = times)
                 }
             }
         }
-    }
-}
-
-@Composable
-fun MyApp(modifier: Modifier, times: List<Prayer>) {
-    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Column(modifier = modifier, horizontalAlignment = Alignment.End) {
-            times.forEach { prayer ->
-                ListItem(prayer.name, prayer.azan, prayer.iqama)
-            }
-        }
-    }
-}
-
-@Preview (showBackground = true)
-@Composable
-fun ListItem(name: String = "PrayerName", time: String = "00:00 AM", iqama: String = "00:00") {
-    Row(modifier = Modifier.padding(3.dp)) {
-        Text(text = name, color = Color.DarkGray, fontSize = 22.sp, fontFamily = FontFamily(Font(R.font.roboto_regular)))
-        Text(text = " $time", fontSize = 22.sp, fontFamily = FontFamily(Font(R.font.roboto_light)))
-        Text(text = " $iqama", color = Color.Gray, fontSize = 22.sp, fontFamily = FontFamily(Font(R.font.roboto_light)))
     }
 }

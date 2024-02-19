@@ -17,12 +17,12 @@
         android:theme="@style/Theme.PrayerTimes"
         tools:targetApi="33">
         <activity
-            android:name=".activity.AlarmActivity"
+            android:name=".ui.activity.AlarmActivity"
             android:exported="false"
             android:label="@string/title_activity_alarm"
             android:theme="@style/Theme.PrayerTimes" />
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.activity.MainActivity"
             android:exported="true"
             android:launchMode="singleTop"
             android:theme="@style/Theme.PrayerTimes">

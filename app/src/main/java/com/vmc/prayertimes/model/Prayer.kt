@@ -1,4 +1,4 @@
-package com.vmc.prayertimes
+package com.vmc.prayertimes.model
 
 import java.time.LocalTime
 

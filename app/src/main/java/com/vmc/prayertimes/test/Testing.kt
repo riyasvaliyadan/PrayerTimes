@@ -1,4 +1,4 @@
-package com.vmc.prayertimes
+package com.vmc.prayertimes.test
 
 import android.content.Context
 import java.util.Calendar

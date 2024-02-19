@@ -1,16 +1,12 @@
 package com.vmc.prayertimes.alarm
 
 import android.content.Context
-import android.util.Log
 import com.vmc.prayertimes.R
-import com.vmc.prayertimes.Prayer
-import com.vmc.prayertimes.Utility.getRawData
+import com.vmc.prayertimes.model.Prayer
+import com.vmc.prayertimes.util.Utility.getRawData
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Calendar
-import kotlin.time.DurationUnit
-import kotlin.time.ExperimentalTime
-import kotlin.time.measureTime
 
 class TimeProvider {
     companion object {

@@ -10,7 +10,7 @@ import android.media.MediaPlayer
 import android.media.RingtoneManager
 import androidx.activity.ComponentActivity
 import androidx.annotation.RawRes
-import com.vmc.prayertimes.MainActivity
+import com.vmc.prayertimes.ui.activity.MainActivity
 import com.vmc.prayertimes.R
 import com.vmc.prayertimes.alarm.TimeProvider.Companion.getMillisForNextPrayer
 

@@ -1,4 +1,4 @@
-package com.vmc.prayertimes.activity
+package com.vmc.prayertimes.ui.activity
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -10,7 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.vmc.prayertimes.activity.ui.theme.PrayerTimesTheme
+import com.vmc.prayertimes.ui.theme.PrayerTimesTheme
 
 class AlarmActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
