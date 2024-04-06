@@ -1,7 +1,6 @@
 package com.vmc.prayertimes.ui.screen
 
 import android.app.Application
-import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,7 +9,7 @@ import com.vmc.prayertimes.alarm.TimeProvider
 import com.vmc.prayertimes.model.Prayer
 import kotlinx.coroutines.launch
 
-class HomeViewModel(private val application: Application) : ViewModel() {
+class MainViewModel(private val application: Application) : ViewModel() {
 
     private val _times = MutableLiveData<List<Prayer>>().apply { value = emptyList() }
     val timesLiveData: LiveData<List<Prayer>> = _times
