@@ -30,13 +30,6 @@ object MyAlarm {
         alarmManager.setAlarmClock(alarmClockInfo, pendingIntent)
     }
 
-    fun cancelAlarm(context: Context) {
-        val alarmManager = context.getSystemService(ComponentActivity.ALARM_SERVICE) as AlarmManager
-        val intent = Intent(context, AlarmReceiver::class.java)
-        val pendingIntent = PendingIntent.getBroadcast(context, ID_CODE, intent, PendingIntent.FLAG_UPDATE_CURRENT)
-        alarmManager.cancel(pendingIntent)
-    }
-
     fun playSound(context: Context) {
         val audioManager = context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
         if (audioManager.ringerMode == AudioManager.RINGER_MODE_NORMAL) {

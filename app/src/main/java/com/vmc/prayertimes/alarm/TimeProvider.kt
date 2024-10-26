@@ -46,10 +46,8 @@ class TimeProvider {
                         return time
                     }
                 }
-
             return Long.MAX_VALUE
         }
-
 
         fun getMillisForTimeAfterOneMinute(context: Context): Long {
             // current time
